@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"> 
+<html>
+<head>
+<!--
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org>
+-->
+<title>Button Game</title>
+<script type="text/javascript">
+var currentButtonToClick;
+var score;
+
+window.onload = function(){
+	currentButtonToClick = Math.floor((Math.random() * 5) + 1);
+	document.getElementById('prompt').innerText = currentButtonToClick;
+	score = 0;
+	document.getElementById('score').style.color = 'firebrick';
+	document.getElementById('score').innerText = score;
+}
+
+
+function clickTheButton(button){
+	if(score < 30){
+		var previousButtonToClick = currentButtonToClick;
+		if(button == currentButtonToClick){
+			while(previousButtonToClick == currentButtonToClick){
+				currentButtonToClick = Math.floor((Math.random() * 5) + 1);
+			}
+			score++;
+			if(score > 0){
+				document.getElementById('score').style.color = 'green';
+			}
+			document.getElementById('score').innerText = score;
+			document.getElementById('prompt').innerText = currentButtonToClick;
+			if(score == 30){
+				document.getElementById('promptdiv').innerText = 'You Win!';
+				document.getElementById('promptdiv').style.color = 'green';
+				document.getElementById('promptdiv').style.fontWeight = 'bold';
+			}
+		}
+		else{
+			score--;
+			if(score <= 0){
+				document.getElementById('score').style.color = 'firebrick';
+			}
+			document.getElementById('score').innerText = score;
+		}
+	}
+}
+
+
+</script>
+</head>
+<body>
+<div align="left">Score: <b><span id="score"></span></b></div>
+<div align="center" id="promptdiv">Please click <b><span id="prompt"></span></b></div>
+
+<table align="center">
+<tr height="100px">
+<td><input id="1" type="button" value="1" onclick="clickTheButton(1);"></td>
+</tr>
+<tr height="100px">
+<td><input id="2" type="button" value="2" onclick="clickTheButton(2);"></td>
+</tr>
+<tr height="100px">
+<td><input id="3" type="button" value="3" onclick="clickTheButton(3);"></td>
+</tr>
+<tr height="100px">
+<td><input id="4" type="button" value="4" onclick="clickTheButton(4);"></td>
+</tr>
+<tr height="100px">
+<td><input id="5" type="button" value="5" onclick="clickTheButton(5);"></td>
+</tr>
+</table>
+</body>
+</html>
